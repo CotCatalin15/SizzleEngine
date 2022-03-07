@@ -1,27 +1,62 @@
 #include "MainLaunch.h"
-
-#include <iostream>
-#include "../Core/Debug/DebugMacros.h"
 #include "../Engine/Class/SEngine.h"
+#include "../ObjectCore/Object/Object.h"
 #include "../ObjectCore/Object/ObjectCast.h"
-#include "../Core/Serialization/Public/SDataSerializer.h"
 
+#include <windows.h>
+#include "../ObjectCore/Object/SObjectRegistry.h"
+#include "../Core/Threading/Task/Public/Task.h"
 
 
 int MainLaunch(int argc, char** argv)
 {
-    SEngine* engine;
-    SDataSerializer ser;
+    //Process arguments
+
+    ///
+
+    ///
+
+    SEngine* engine = nullptr;
+
+
+
+    Object* engineObject = Object::CreateObject(SEngine::GetStaticClass());
+    if (engineObject == nullptr)
     {
-        engine = (SEngine*)SEngine::GetStaticClass()->CreateObject();
-        engine->a = 30;
-        engine->Serialize(ser);
-        delete engine;
+        echeck(0, "Failed to instanciate engine class!");
+        return -1;
     }
 
-    SDataSerializer wr(ser.GetData(), ser.GetSize());
-    engine = (SEngine*)SEngine::GetStaticClass()->CreateObject();
-    engine->Serialize(wr);
-	system("pause");
+
+    engine = ObjectCast<SEngine>(engineObject);
+    if (!engine)
+    {
+        echeck(0, "Failed to instanciate engine class!");
+        return -1;
+    }
+
+
+    {
+
+        struct EngineLockGuard
+        {
+            EngineLockGuard(SEngine*& engine)  :
+                engine{ engine }
+            {}
+
+            ~EngineLockGuard() 
+            {
+                engine->Destroy();
+                engine = nullptr;
+            }
+
+            SEngine*& engine;
+        }EngineGuard(engine);
+
+        while (engine->IsEngineRunning())
+        {
+            engine->RunEngine();
+        }
+    }
 	return 0;
 }

@@ -8,14 +8,22 @@
 #include "SEngine.generated.h"
 
 
-BUILD_EXECUTE_COMMAND(ParseClass, API = ENGINE_API)
+BUILD_EXECUTE_COMMAND(ParseClass, API = ENGINE_API, INSTANCE = SClassTraits::SingleInstanceClass)
 class ENGINE_API SEngine : public Object
 {
 	GENERATE_SCLASS()
-public:
-	SEngine();
-	~SEngine();
+public: 
+	
+	~SEngine(); 
+	
+	virtual void InitObject();
 
-	BUILD_EXECUTE_SUBCOMMAND(Reflect);
-	int a;
+	bool IsEngineRunning();
+	void RunEngine();
+
+private:
+
+	void LoadEngineModules();
+
+	bool _engineAlive;
 };

@@ -14,12 +14,15 @@ public:
 
 	virtual uint64_t GetSize() const = 0;
 	virtual std::string GetName() const = 0;
-	virtual Object* Clone() = 0;
 	virtual SClass* GetObjectClass() const { return nullptr; }
 
 	virtual void Serialize( SArchive& ar );
 
-	void Destroy();
+	virtual void InitObject() {}
+
+    void Destroy();
+
+	static Object* CreateObject(SClass* Class);
 
 private:
 };

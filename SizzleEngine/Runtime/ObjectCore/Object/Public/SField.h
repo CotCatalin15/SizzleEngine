@@ -6,7 +6,7 @@
 #include "../../ObjectCoreAPI.h"
 #include "../../../Core/Serialization/SArchive.h"
 #include <memory>
-#include "../../../Core/Debug/DebugMacros.h"
+#include "../../../Core/CoreDebug/DebugMacros.h"
 
 class OBJECTCORE_API SField : public Object
 {
@@ -41,12 +41,19 @@ public:
 		return field;
 	}
 
+    template<typename T>
+    static SField* CreateFieldNoSerializer(std::string const& Type, std::string const& Name, uint32_t Size, uint32_t Offset, std::vector<std::string> const& Properties)
+    {
+        SField* field = CreateFieldInternal(Type, Name, Size, Offset, Properties);
+        field->_serializer = nullptr;
+
+        return field;
+    }
 
 	uint64_t GetSize() const override;
 
 	std::string GetName() const override;
 
-	Object* Clone() override;
 
 
 	uint32_t GetFieldSize() const { return _size; }

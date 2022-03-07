@@ -7,11 +7,11 @@
 	class ENGINE_API SEngine_SClass : public SClass\
 	{\
 		public:\
-		SEngine_SClass()\
+		SEngine_SClass() : SClass(SClassTraits::SingleInstanceClass)\
 		{\
 			_name = "SEngine";\
 			_derived = "Object";\
-			_fields.emplace_back( SField::CreateField<int>("int", "a", sizeof(int), offsetof(SEngine, a), {}) );\
+			\
 		}\
 		virtual std::string GetName() const override { return "SEngine";}\
 		virtual Object* CreateObject() override { return new SEngine(); }\
@@ -23,6 +23,5 @@
 	public:\
 	virtual uint64_t GetSize() const override {return sizeof(SEngine);}\
 	virtual std::string GetName() const override { return "SEngine";}\
-	virtual Object* Clone() override { return new SEngine(); }\
 	static SClass* GetStaticClass() { return SEngine_SClass::GetStaticClass();}\
 	SClass* GetObjectClass() const override { return SEngine_SClass::GetStaticClass();}

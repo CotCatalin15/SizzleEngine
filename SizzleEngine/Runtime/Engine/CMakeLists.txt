@@ -5,6 +5,9 @@ add_library(EngineLib SHARED)
 target_sources(EngineLib PRIVATE 
 	EngineAPI.h
 
+	Module/EngineModule.h
+	Module/EngineModule.cpp
+
 	Class/SEngine.h
 	Class/SEngine.generated.h
 	Class/SEngine.cpp)

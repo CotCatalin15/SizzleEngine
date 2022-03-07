@@ -29,13 +29,12 @@ std::string SField::GetName() const
 	return "SField";
 }
 
-Object* SField::Clone()
-{
-	return new SField(_type, _name, _size, _offset, _properties);
-}
 
 SArchive& SField::SerializeField(SArchive& ar, Object* Obj)
 {
-	_serializer->Serialize(ar, Obj, this);
+	if (_serializer != nullptr)
+	{
+		_serializer->Serialize(ar, Obj, this);
+	}
 	return ar;
 }

@@ -67,11 +67,6 @@ public:
 		return sizeof(T);
 	}
 
-	virtual Object* Clone() final override
-	{
-		return static_cast<Object*>(new SimpleObjectType<T>(std::ref(_val)));
-	}
-
 	static std::string GetStaticName()  { return "test"; }
 
 private:

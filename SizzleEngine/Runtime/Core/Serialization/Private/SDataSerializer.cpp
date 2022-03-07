@@ -2,7 +2,7 @@
 #include "..\Public\SDataSerializer.h"
 
 #include "../Public/SDataSerializer.h"
-#include "..\..\Debug\DebugMacros.h"
+#include "..\..\CoreDebug\DebugMacros.h"
 #include <string.h>
 
 SDataSerializer::SDataSerializer() :
