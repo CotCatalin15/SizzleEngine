@@ -5,7 +5,6 @@
 
 #include <windows.h>
 #include "../ObjectCore/Object/SObjectRegistry.h"
-#include "../Core/Threading/Task/Public/Task.h"
 
 
 int MainLaunch(int argc, char** argv)
@@ -31,10 +30,9 @@ int MainLaunch(int argc, char** argv)
     engine = ObjectCast<SEngine>(engineObject);
     if (!engine)
     {
-        echeck(0, "Failed to instanciate engine class!");
+        echeck(0, "Failed to cast to engine class!");
         return -1;
     }
-
 
     {
 

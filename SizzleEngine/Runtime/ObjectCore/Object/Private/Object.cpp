@@ -8,7 +8,6 @@ Object::Object()
 
 Object::~Object()
 {
-
 }
 
 void Object::Serialize(SArchive& ar)
@@ -16,7 +15,7 @@ void Object::Serialize(SArchive& ar)
 	//Goes through each its objects class 
 	SClass* ObjClass = this->GetObjectClass();
 
-	for (auto field : ObjClass->GetFields())
+	for (auto& field : ObjClass->GetFields())
 	{
 		//tries to serialise field
 		field->SerializeField(ar, this);

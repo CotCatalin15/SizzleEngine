@@ -14,7 +14,7 @@ private:
 	class OBJECTCORE_API SFieldSerializerAny
 	{
 	public:
-		virtual  void Serialize(SArchive& Ar, Object* obj, SField* field) = 0;
+		virtual void Serialize(SArchive& Ar, Object* obj, SField* field) = 0;
 	private:
 	};
 
@@ -92,20 +92,13 @@ private:
 	SField(std::string const& Type, std::string const& Name, uint32_t Size, uint32_t Offset, std::vector<std::string> const& Properties);
 
 	static SField* CreateFieldInternal(std::string const& Type, std::string const& Name, uint32_t Size, uint32_t Offset, std::vector<std::string> const& Properties);
-	
 
 	std::string _type;
-
-
 	std::string _name;
-
 	uint32_t _size;
-
 	uint32_t _offset;
 
 	std::vector<std::string> _properties;
-
-
 	std::unique_ptr< SFieldSerializerAny > _serializer;
 };
 

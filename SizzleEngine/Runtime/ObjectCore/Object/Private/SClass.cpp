@@ -21,7 +21,7 @@ Object* SClass::InstanciateObject()
             std::unique_lock<std::mutex> Lock(_sclassMutex);
             if (_createdObjects.size() == 1)
             {
-                SIZZLE_LOG(LogVerbosity::Error, "trying to instantiate a single instance class %s",_name.c_str());
+                SIZZLE_LOG(DefaultLog, LogVerbosity::Error, "trying to instantiate a single instance class %s",_name.c_str());
                 return nullptr;
             }
         }

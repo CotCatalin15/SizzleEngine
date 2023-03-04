@@ -1,1 +1,1 @@
-{"RebuldFiles":[],"BuildFiles":{"SizzleEngine\\Runtime\\Engine\\Class":["SEngine.h"]},"ProjectVersion":"1.0","ProjectPath":"D:\\Programare\\c++\\GameEngine3.0\\SizzleEngine","ProjectName":"SizzleEngine","FileBuildLastError":{}}
+{"RebuldFiles":[],"BuildFiles":{"SizzleEngine\\Runtime\\Engine\\Class":["SEngine.h"],"SizzleEngine\\Tests\\HotReloadTest":["TestObject.h"]},"ProjectVersion":"1.0","ProjectPath":"D:\\Programare\\c++\\GameEngine3.0\\SizzleEngine","ProjectName":"SizzleEngine","FileBuildLastError":{}}

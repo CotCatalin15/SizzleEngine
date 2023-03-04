@@ -6,3 +6,4 @@ if(WIN32)
 endif()
 
 add_subdirectory(Runtime)  
+add_subdirectory(Tests)  

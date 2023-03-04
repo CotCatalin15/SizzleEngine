@@ -23,7 +23,10 @@ public:
 
 private:
 
-	void LoadEngineModules();
+	void LoadEngineComponents();
 
-	bool _engineAlive;
+	void LoadEngineModules();
+	void UnloadEngineModules();
+
+	bool _engineAlive = false;
 };

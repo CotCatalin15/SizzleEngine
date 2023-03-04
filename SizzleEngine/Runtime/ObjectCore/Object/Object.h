@@ -3,10 +3,13 @@
 
 #include <string>
 #include "../../Core/Serialization/SArchive.h"
+#include "../../Core/Util/RefCounter.h"
+#include "../../Core/Util/RefPointer.h"
+
 
 class SClass;
 
-class OBJECTCORE_API Object
+class OBJECTCORE_API Object : public RefCounter
 {
 public:
 	Object();

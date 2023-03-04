@@ -12,6 +12,20 @@ enum class LogVerbosity
     FatalError  //no cleanup 
 };
 
+class CORE_API LogCategory
+{
+public:
+    LogCategory(const std::string& Category) :
+        _category{ Category }
+    {
+
+    }
+    
+    inline std::string GetCategory() const { return _category; }
+private:
+    std::string _category;
+};
+
 
 class CORE_API ILogContext
 {
@@ -26,7 +40,7 @@ public:
     {
         std::string buffer;
         const char* const msg = Message.c_str();
-        int size = snprintf(nullptr, 0, msg, std::forward<Args>(args)...);
+        size_t size = snprintf(nullptr, 0, msg, std::forward<Args>(args)...);
         buffer.resize(size + 1);
         sprintf_s(buffer.data(), size + 1, Message.c_str(), std::forward<Args>(args)...);
 

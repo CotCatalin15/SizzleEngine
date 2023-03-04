@@ -4,8 +4,14 @@ cmake_minimum_required(VERSION 3.21)
 add_library(EngineCore SHARED
 	CoreAPI.h
 	
+	Util/Event.h
+	Util/Event.cpp
 	Util/RefCounter.h
+	Util/RefCounter.cpp
 	Util/RefPointer.h
+	Util/LibraryLoader.h
+	Util/LibraryLoader.cpp
+	Util/ScopeGuard.h
 
 	CoreDebug/DebugMacros.h
 	CoreDebug/Private/DebugMacros.cpp
@@ -24,9 +30,6 @@ add_library(EngineCore SHARED
 
 	Serialization/Public/SDataSerializer.h
 	Serialization/Private/SDataSerializer.cpp
-
-	Threading/Task/Public/Task.h
-	Threading/Task/Private/Task.cpp
 )
 
 #set_target_properties(EngineCore PROPERTIES LINKER_LANGUAGE CXX)

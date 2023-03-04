@@ -143,7 +143,7 @@ public:
 
 	friend CORE_API SArchive& operator<<(SArchive& Ar, std::string& val)
 	{
-		uint32_t Size = (uint32_t)val.size();
+		size_t Size = val.size();
 		Ar << Size;
 
 		if (Ar._bIsWriting == false)

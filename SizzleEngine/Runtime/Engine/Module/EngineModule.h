@@ -1,34 +1,44 @@
 #pragma once
-#include <windows.h>
-#include <string>
 #include "../EngineAPI.h"
-#include <unordered_map>
 #include "../../Core/Util/RefPointer.h"
 #include "../../Core/Util/RefCounter.h"
 
-class ENGINE_API EngineModule
+#include <mutex>
+#include <windows.h>
+#include <string>
+#include <unordered_map>
+#include <utility>
+
+class EngineModule
 {
 public:
-    EngineModule(std::string const& Path);
-    ~EngineModule();
+    EngineModule() = default;
+    virtual ~EngineModule() = default;
 
-    void* LoadFunction(const char* Name);
+    virtual void Load() = 0;
+    virtual void Destroy() = 0;
+    virtual void RegisterSClasses() = 0;
 
-    inline bool Failed() const { return !_library; }
+
 private:
-    HMODULE _library;
+
 };
 
 class ENGINE_API EngineModuleLoader
 {
 public:
     EngineModuleLoader() {}
-    ~EngineModuleLoader() {}
+    ~EngineModuleLoader() { UnloadAll(); }
 
     static EngineModuleLoader* Get();
 
-    EngineModule* CreateModule(std::string const& Path) { return nullptr; }
+    EngineModule* GetOrCreateModule(std::string const& Path);
+
+    void UnloadAll();
 
 private:
-    std::unordered_map<std::string, EngineModule*> _libraries;
+
+    std::mutex _moduleMutex;
+
+    std::unordered_map<std::string, std::pair<HMODULE, EngineModule*>> _libraries;
 };

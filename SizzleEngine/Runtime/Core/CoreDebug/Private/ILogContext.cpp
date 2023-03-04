@@ -7,7 +7,6 @@
 
 
 
-
 SFileLogContext::SFileLogContext(std::string const& Path)
 {
     _writer.open(Path, std::ios::app | std::ios::ate);
@@ -19,8 +18,6 @@ bool SFileLogContext::LogMessage(LogVerbosity Verbosity, const std::string& Mess
     {
         return false;
     }
-
-    
 
     switch (Verbosity)
     {
@@ -37,6 +34,7 @@ bool SFileLogContext::LogMessage(LogVerbosity Verbosity, const std::string& Mess
         _writer << "[FatalError] ";
         break;
     }
+
     _writer << Message << '\n';
  
 #ifdef _WRITE_DEBUG_TO_CONSOLE
@@ -50,7 +48,6 @@ bool SFileLogContext::LogMessage(LogVerbosity Verbosity, const std::string& Mess
         //Deal with the error
         ExternEngineForceDestroy.Broadcast();
         system("pause");
-        exit(-1);
         return false;
     }
     else if (Verbosity == LogVerbosity::FatalError)
