@@ -26,6 +26,7 @@ private:
 	void LoadEngineComponents();
 
 	void LoadEngineModules();
+	void InitializeEngineDelegates();
 	void UnloadEngineModules();
 
 	bool _engineAlive = false;

@@ -30,7 +30,7 @@ add_library(EngineCore SHARED
 
 	Serialization/Public/SDataSerializer.h
 	Serialization/Private/SDataSerializer.cpp
-)
+ "CoreDebug/Private/DebugStackTrace.h" "CoreDebug/Private/DebugStackTrace.cpp" "CoreDebug/Public/CheckException.h")
 
 #set_target_properties(EngineCore PROPERTIES LINKER_LANGUAGE CXX)
 target_compile_definitions(EngineCore PRIVATE CORE_LIB=3)

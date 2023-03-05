@@ -12,7 +12,6 @@ void SEngine::InitObject()
 {
     _engineAlive = true;
 
-
     OnEnginePreLoadDelegate.Broadcast();
     LoadEngineComponents();
 
@@ -46,9 +45,12 @@ void SEngine::RunEngine()
 
 void SEngine::LoadEngineComponents()
 {
+    InitializeEngineDelegates();
+
     //Init the engine render context
     InitializeRenderContext();
-    //Now start the renderthrad
+
+    //Now start the render thread
     StartRenderThreadAsync();
     
     GRenderThreadAcceptsTasks.Wait();
@@ -59,5 +61,35 @@ void SEngine::LoadEngineComponents()
 void SEngine::LoadEngineModules()
 {
     
+}
+
+void SEngine::InitializeEngineDelegates()
+{
+    //Called by check
+    ExternEngineForceDestroy.RegisterDelegate([]() {
+        static bool firstCall = true;
+        if (firstCall == false)
+        {
+            //Check was called in this delegate
+            firstCall = true;
+            //Error/Fatal will call this function again
+            SIZZLE_LOG(DefaultLog, LogVerbosity::Warning, "Log with verobisity Error was called inside ExternEngineForceDestroy");
+            exit(-1);
+        }
+        firstCall = false;
+    });
+
+    ExternEngineForceDestroyNoCleanup.RegisterDelegate([]() {
+        static bool firstCall = true;
+        if (firstCall == false)
+        {
+            //Check was called in this delegate
+            firstCall = true;
+            //Error/Fatal will call this function again
+            SIZZLE_LOG(DefaultLog, LogVerbosity::Warning, "Log with verobisity Fatal was called inside ExternEngineForceDestroyNoCleanup");
+            exit(-1);
+        }
+        firstCall = false;
+        });
 }
 

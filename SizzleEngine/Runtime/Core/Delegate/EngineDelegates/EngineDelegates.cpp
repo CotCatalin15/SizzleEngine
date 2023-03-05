@@ -18,5 +18,5 @@ Delegate<> OnEnginePostDestroyDelegate;
 //On error
 Delegate<> ExternEngineForceDestroy;
 
-//On fatal error where immediate shutdown is required 
+//On fatal error where immediate shutdown is required
 Delegate<> ExternEngineForceDestroyNoCleanup;

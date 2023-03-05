@@ -88,7 +88,7 @@ void VulkanRenderContext::InitInstance()
     instanceCreateInfo.ppEnabledLayerNames = instanceLayers.data();
     instanceCreateInfo.enabledExtensionCount = (uint32_t)instanceExtensions.size();
     instanceCreateInfo.ppEnabledExtensionNames = instanceExtensions.data();
-
+    check(false);
     vulkan_check(VulkanWrapper::vkCreateInstance(&instanceCreateInfo, nullptr, &m_instance));
 
 #ifdef VULKAN_DEBUG
