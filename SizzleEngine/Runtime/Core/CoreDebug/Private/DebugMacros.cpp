@@ -1,3 +1,3 @@
 #include "../DebugMacros.h"
 
-SFileLogContext DefaultLog("Log.txt");
+SFileLogContext DefaultLog("DefaultLog.txt");
