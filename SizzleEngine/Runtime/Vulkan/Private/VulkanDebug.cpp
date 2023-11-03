@@ -1,6 +1,7 @@
 #include "VulkanDebug.h"
 #include <memory>
 #include "VulkanWrapper.h"
+#include "VulkanStats.h"
 
 extern SFileLogContext VulkanLog("VulkanLog.txt");
 

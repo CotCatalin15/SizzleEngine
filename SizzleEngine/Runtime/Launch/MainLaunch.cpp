@@ -32,7 +32,6 @@ int MainLaunch(int argc, char** argv)
     }
 
     {
-
         struct EngineLockGuard
         {
             EngineLockGuard(SEngine*& engine)  :
