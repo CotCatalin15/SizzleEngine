@@ -10,8 +10,8 @@ class VULKANCORE_API VulkanRenderContext : public RenderContext
 {
 public:
     VulkanRenderContext();
-
     ~VulkanRenderContext();
+
 private:
 
     void InitInstance();

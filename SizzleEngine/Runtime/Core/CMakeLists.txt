@@ -13,9 +13,13 @@ add_library(EngineCore SHARED
 	Util/LibraryLoader.cpp
 	Util/ScopeGuard.h
 
+	Statistics/Statistics.h
+	Statistics/Statistics.cpp
+
+	Pools/MemoryPool.h
+
 	CoreDebug/DebugMacros.h
 	CoreDebug/Private/DebugMacros.cpp
-
 
 	CoreDebug/Public/ILogContext.h
 	CoreDebug/Private/ILogContext.cpp
@@ -30,9 +34,18 @@ add_library(EngineCore SHARED
 
 	Serialization/Public/SDataSerializer.h
 	Serialization/Private/SDataSerializer.cpp
- "CoreDebug/Private/DebugStackTrace.h" "CoreDebug/Private/DebugStackTrace.cpp" "CoreDebug/Public/CheckException.h")
+
+	CoreDebug/Private/DebugStackTrace.h 
+	CoreDebug/Private/DebugStackTrace.cpp
+	CoreDebug/Public/CheckException.h
+)
 
 #set_target_properties(EngineCore PROPERTIES LINKER_LANGUAGE CXX)
 target_compile_definitions(EngineCore PRIVATE CORE_LIB=3)
 target_compile_definitions(EngineCore PRIVATE _WRITE_DEBUG_TO_CONSOLE=3)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	target_compile_definitions(EngineCore PRIVATE DEBUG_POOL_MEMORY)
+endif()
+
 set_property(TARGET EngineCore PROPERTY CXX_STANDARD 20)

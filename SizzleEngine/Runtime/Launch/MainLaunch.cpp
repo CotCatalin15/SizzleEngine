@@ -17,15 +17,12 @@ int MainLaunch(int argc, char** argv)
 
     SEngine* engine = nullptr;
 
-
-
     Object* engineObject = Object::CreateObject(SEngine::GetStaticClass());
     if (engineObject == nullptr)
     {
         echeck(0, "Failed to instanciate engine class!");
         return -1;
     }
-
 
     engine = ObjectCast<SEngine>(engineObject);
     if (!engine)

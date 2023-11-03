@@ -7,7 +7,10 @@
 
 extern SFileLogContext VulkanLog;
 
-#define vulkan_check(expr) check_log(VulkanLog, expr == VK_SUCCESS );
+#define vulkan_check(expr) do {\
+    VkResult result = (expr);\
+    echeck_log(VulkanLog, (result) == VK_SUCCESS, "Result: %d", result );\
+}while(0)
 
 template<typename VkStructType>
 inline void VulkanZeroStruct(VkStructType& VkStruct, VkStructureType Type)

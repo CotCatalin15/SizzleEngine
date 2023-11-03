@@ -17,10 +17,12 @@ target_sources(VulkanRenderContext PRIVATE
 	Private/VulkanQueue.h
 	Private/VulkanQueue.cpp
 	Private/vk_mem_alloc.h
+	Private/Vulkanfence.h
+	Private/Vulkanfence.cpp
 
 	Public/VulkanRenderContext.h
 	Private/VulkanRenderContext.cpp
-)
+ "Private/VulkanFence.h" "Private/VulkanFence.cpp")
 
 target_link_libraries(VulkanRenderContext PRIVATE EngineCore) 
 target_link_libraries(VulkanRenderContext PRIVATE EngineRenderContext) 

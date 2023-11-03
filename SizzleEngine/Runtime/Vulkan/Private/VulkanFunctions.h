@@ -57,5 +57,5 @@
 	X(vkDestroyBuffer);\
 	X(vkCreateImage);\
 	X(vkDestroyImage);\
-	X(vkCmdCopyBuffer);\
+	X(vkCmdCopyBuffer);
 	

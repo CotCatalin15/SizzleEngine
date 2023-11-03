@@ -132,7 +132,17 @@ VkResult VulkanWrapper::vkCreateDevice(VkPhysicalDevice physicalDevice, const Vk
 
 void VulkanWrapper::vkDestroyDevice(VkDevice device, const VkAllocationCallbacks* pAllocator)
 {
-    return VULKAN_FN_NAMESPACE vkDestroyDevice(device, pAllocator);
+    VULKAN_FN_NAMESPACE vkDestroyDevice(device, pAllocator);
+}
+
+VkResult VulkanWrapper::vkCreateFence(VkDevice device, const VkFenceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkFence* pFence)
+{
+    return VULKAN_FN_NAMESPACE vkCreateFence(device, pCreateInfo, pAllocator, pFence);
+}
+
+void VulkanWrapper::vkDestroyFence(VkDevice device, VkFence fence, const VkAllocationCallbacks* pAllocator)
+{
+    VULKAN_FN_NAMESPACE vkDestroyFence(device, fence, pAllocator);
 }
 
 void* VulkanWrapper::vkGetDeviceProcAddr(VkDevice device, const char* pName)

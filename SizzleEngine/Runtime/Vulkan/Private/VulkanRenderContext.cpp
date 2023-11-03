@@ -25,7 +25,6 @@ VulkanRenderContext::~VulkanRenderContext()
         VulkanWrapper::vkDestroyInstance(m_instance, GetVulkanAllocator());
         m_instance = nullptr;
     }
-    
 }
 
 void VulkanRenderContext::InitInstance()
@@ -88,7 +87,7 @@ void VulkanRenderContext::InitInstance()
     instanceCreateInfo.ppEnabledLayerNames = instanceLayers.data();
     instanceCreateInfo.enabledExtensionCount = (uint32_t)instanceExtensions.size();
     instanceCreateInfo.ppEnabledExtensionNames = instanceExtensions.data();
-    check(false);
+    
     vulkan_check(VulkanWrapper::vkCreateInstance(&instanceCreateInfo, nullptr, &m_instance));
 
 #ifdef VULKAN_DEBUG
