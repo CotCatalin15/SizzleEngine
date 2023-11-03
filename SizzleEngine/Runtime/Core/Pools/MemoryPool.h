@@ -1,6 +1,7 @@
 #pragma once
 #include <mutex>
 #include <list>
+#include <optional>
 
 namespace Core::Pool
 {
@@ -26,7 +27,7 @@ namespace Core::Pool
             ReuseHandle(const ReuseHandle&) = delete;
             ReuseHandle& operator=(const ReuseHandle&) = delete;
 
-            ReuseHandle(ReuseHandle&& other)
+            ReuseHandle(ReuseHandle&& other) noexcept
             {
                 this->m_it = std::move(other.m_it);
             }
@@ -46,11 +47,16 @@ namespace Core::Pool
             friend class SimpleReusePool;
         };
     public:
-        /// <summary>
-        /// This does not guarantee an allocation
-        /// </summary>
+
         template<typename ... Args>
         ReuseHandle Allocate(Args&& ... args)
+        {
+            std::scoped_lock<decltype(m_poolLock)> lock(m_poolLock);
+            m_usedList.emplace_back(std::forward<Args>(args)...);
+            return std::prev(m_usedList.end());
+        }
+
+        std::optional<ReuseHandle> Reuse()
         {
             std::scoped_lock<decltype(m_poolLock)> lock(m_poolLock);
 
@@ -59,7 +65,21 @@ namespace Core::Pool
                 m_usedList.splice(m_usedList.end(), m_freeList, std::prev(m_freeList.end()));
                 return std::prev(m_usedList.end());
             }
-            m_usedList.emplace_back(std::forward<Args>(args)...);
+
+            return std::nullopt_t;
+        }
+
+        template<typename Fnc /*(const T& ) -> bool*/>
+        std::optional<ReuseHandle> FindIf(Fnc&& fnc)
+        {
+            std::scoped_lock<decltype(m_poolLock)> lock(m_poolLock);
+            auto it = std::find_if(m_freeList.begin(), m_freeList.end(), fnc);
+            if (it == m_freeList.end())
+            {
+                return std::nullopt;
+            }
+            
+            m_usedList.splice(m_usedList.end(), m_freeList, it);
             return std::prev(m_usedList.end());
         }
 

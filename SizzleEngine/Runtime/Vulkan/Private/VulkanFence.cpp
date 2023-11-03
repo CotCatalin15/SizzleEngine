@@ -1,6 +1,8 @@
 #include "VulkanFence.h"
 #include "VulkanWrapper.h"
 #include "VulkanDevice.h"
+#include "VulkanStats.h"
+
 
 VulkanFence::VulkanFence(VulkanDevice* Device, bool Signaled) :
     m_handle{ nullptr },
@@ -13,21 +15,33 @@ VulkanFence::VulkanFence(VulkanDevice* Device, bool Signaled) :
     vulkan_check(VulkanWrapper::vkCreateFence(Device->GetHandle(), &fenceCreateInfo, GetVulkanAllocator(), &m_handle));
 }
 
-VulkanFence::VulkanFence(VulkanFence&& other)
-{
-    this->m_device = other.m_device;
-    this->m_handle = other.m_handle;
-
-    other.m_device = nullptr;
-    other.m_handle = nullptr;
-}
-
 VulkanFence::~VulkanFence()
 {
     if (m_handle)
     {
         VulkanWrapper::vkDestroyFence(m_device->GetHandle(), m_handle, GetVulkanAllocator());
     }
+}
+
+bool VulkanFence::IsSignaled() const
+{
+    VkResult result = VulkanWrapper::vkWaitForFences(m_device->GetHandle(), 1, &m_handle, VK_FALSE, 0);
+    switch (result)
+    {
+    case VK_SUCCESS:
+        return true;
+    case VK_TIMEOUT:
+        return false;
+    default:
+        vulkan_check(result);
+    }
+
+    return false;
+}
+
+void VulkanFence::Reset()
+{
+    VulkanWrapper::vkResetFences(m_device->GetHandle(), 1, &m_handle);
 }
 
 VulkanFencePool::VulkanFencePool(VulkanDevice* Device) :
@@ -38,7 +52,27 @@ VulkanFencePool::VulkanFencePool(VulkanDevice* Device) :
 
 VulkanFencePool::VkFenceHandle VulkanFencePool::AllocateFence(bool Signaled)
 {
-    return m_fencePool.Allocate(std::move(VulkanFence(m_device, Signaled)));
+    std::optional<VkFenceHandle> handle;
+    if (Signaled)
+    {
+        handle = m_fencePool.FindIf([](const VulkanFence& Fence) {
+            if (Fence.IsSignaled()) {
+                return true;
+            }
+            return false;
+            });
+    }
+    else
+    {
+        handle = m_fencePool.Reuse();
+    }
+
+    if (handle)
+    {
+        return std::move(handle.value());
+    }
+
+    return m_fencePool.Allocate(m_device, true);
 }
 
 void VulkanFencePool::FreeFence(VkFenceHandle Fence)

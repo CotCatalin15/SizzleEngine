@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../../Core/CoreDebug/DebugMacros.h"
 #include "../../../Thirdparty/Include/Vulkan/vulkan.h"
+#include "VulkanStats.h"
 #include "vk_mem_alloc.h"
 
 extern SFileLogContext VulkanLog;

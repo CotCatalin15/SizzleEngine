@@ -25,7 +25,7 @@ target_sources(VulkanRenderContext PRIVATE
 
 	Public/VulkanRenderContext.h
 	Private/VulkanRenderContext.cpp
- "Private/VulkanFence.h" "Private/VulkanFence.cpp")
+ "Private/VulkanFence.h" "Private/VulkanFence.cpp" "Private/VulkanStats.h")
 
 target_link_libraries(VulkanRenderContext PRIVATE EngineCore) 
 target_link_libraries(VulkanRenderContext PRIVATE EngineRenderContext) 

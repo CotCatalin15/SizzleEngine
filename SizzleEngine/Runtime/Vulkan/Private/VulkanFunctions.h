@@ -42,6 +42,8 @@
 	X(vkDestroyDevice);\
 	X(vkGetDeviceQueue);\
 	X(vkCreateFence);\
+	X(vkResetFences);\
+	X(vkWaitForFences);\
 	X(vkDestroyFence);\
 	X(vkAllocateMemory);\
 	X(vkFreeMemory);\
