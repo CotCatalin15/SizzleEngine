@@ -2,6 +2,7 @@
 #include <atomic>
 #include <chrono>
 #include <functional>
+#include <mutex>
 #include "../CoreAPI.h"
 
 namespace Core::Statistics

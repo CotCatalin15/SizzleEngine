@@ -19,6 +19,9 @@ target_sources(VulkanRenderContext PRIVATE
 	Private/vk_mem_alloc.h
 	Private/Vulkanfence.h
 	Private/Vulkanfence.cpp
+	Private/VulkanStats.h
+	Private/VulkanBuffer.h
+	Private/VulkanBuffer.cpp
 
 	Public/VulkanRenderContext.h
 	Private/VulkanRenderContext.cpp
