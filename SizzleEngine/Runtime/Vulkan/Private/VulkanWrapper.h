@@ -1,8 +1,5 @@
 #pragma once
-
-
 #include "VulkanDebug.h"
-
 
 class VulkanWrapper
 {
@@ -17,6 +14,8 @@ public:
     static void* LoadDefaultVulkanFunction(const char* Name);
     static void* LoadInstanceVulkanFunction(VkInstance instance, const char* Name);
     static void* LoadDeviceVulkanFunctions(VkDevice device, const char* Name);
+    static void  FillVmaFunctions(struct VmaVulkanFunctions* Functions);
+
 
     static VkResult vkEnumerateInstanceLayerProperties(uint32_t* pPropertyCount, VkLayerProperties* pProperties);
     static VkResult vkEnumerateInstanceExtensionProperties(const char* pLayerName, uint32_t* pPropertyCount, VkExtensionProperties* pProperties);
@@ -37,11 +36,14 @@ public:
     static VkResult vkCreateFence(VkDevice device, const VkFenceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkFence* pFence);
     static void     vkDestroyFence(VkDevice device, VkFence fence, const VkAllocationCallbacks* pAllocator);
 
-    static void* vkGetDeviceProcAddr(VkDevice device, const char* pName);
-    static void vkGetDeviceQueue(VkDevice device, uint32_t queueFamilyIndex, uint32_t queueIndex, VkQueue* pQueue);
+    static void*    vkGetDeviceProcAddr(VkDevice device, const char* pName);
+    static void     vkGetDeviceQueue(VkDevice device, uint32_t queueFamilyIndex, uint32_t queueIndex, VkQueue* pQueue);
     static VkResult vkAllocateMemory(VkDevice device, const VkMemoryAllocateInfo* pAllocateInfo, const VkAllocationCallbacks* pAllocator, VkDeviceMemory* pMemory);
-    static void vkFreeMemory(VkDevice device, VkDeviceMemory memory, const VkAllocationCallbacks* pAllocator);
+    static void     vkFreeMemory(VkDevice device, VkDeviceMemory memory, const VkAllocationCallbacks* pAllocator);
 
-    static void FillVmaFunctions(struct VmaVulkanFunctions* Functions);
+    static VkResult vkCreateBuffer(VkDevice device, const VkBufferCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkBuffer* pBuffer);
+    static void     vkDestroyBuffer(VkDevice device, VkBuffer buffer, const VkAllocationCallbacks* pAllocator);
+    static void     vkGetBufferMemoryRequirements(VkDevice device, VkBuffer buffer, VkMemoryRequirements* pMemoryRequirements);
+    static VkResult vkBindBufferMemory(VkDevice device, VkBuffer buffer, VkDeviceMemory memory, VkDeviceSize memoryOffset);
 private:
 };

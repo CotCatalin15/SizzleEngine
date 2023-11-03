@@ -165,6 +165,26 @@ void VulkanWrapper::vkFreeMemory(VkDevice device, VkDeviceMemory memory, const V
     VULKAN_FN_NAMESPACE vkFreeMemory(device, memory, pAllocator);
 }
 
+VkResult VulkanWrapper::vkCreateBuffer(VkDevice device, const VkBufferCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkBuffer* pBuffer)
+{
+    return VULKAN_FN_NAMESPACE vkCreateBuffer(device, pCreateInfo, pAllocator, pBuffer);
+}
+
+void VulkanWrapper::vkDestroyBuffer(VkDevice device, VkBuffer buffer, const VkAllocationCallbacks* pAllocator)
+{
+    VULKAN_FN_NAMESPACE vkDestroyBuffer(device, buffer, pAllocator);
+}
+
+void VulkanWrapper::vkGetBufferMemoryRequirements(VkDevice device, VkBuffer buffer, VkMemoryRequirements* pMemoryRequirements)
+{
+    VULKAN_FN_NAMESPACE vkGetBufferMemoryRequirements(device, buffer, pMemoryRequirements);
+}
+
+VkResult VulkanWrapper::vkBindBufferMemory(VkDevice device, VkBuffer buffer, VkDeviceMemory memory, VkDeviceSize memoryOffset)
+{
+    return VULKAN_FN_NAMESPACE vkBindBufferMemory(device, buffer, memory, memoryOffset);
+}
+
 void VulkanWrapper::FillVmaFunctions(VmaVulkanFunctions* Functions)
 {
     check(Functions);
