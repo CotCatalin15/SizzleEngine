@@ -11,12 +11,14 @@ class VulkanDevice;
 class VulkanFence
 {
 public:
-    VulkanFence(VulkanFence&& other);
+    VulkanFence(VulkanDevice* Device, bool Signaled);
     ~VulkanFence();
+    
+    bool IsSignaled() const;
+    void Reset();
 
     VkFence GetHandle() { return m_handle; }
 private:
-    VulkanFence(VulkanDevice* Device, bool Signaled);
 
     VkFence m_handle;
     VulkanDevice* m_device;

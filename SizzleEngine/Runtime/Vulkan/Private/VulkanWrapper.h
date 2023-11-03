@@ -35,6 +35,8 @@ public:
     static void     vkDestroyDevice(VkDevice device, const VkAllocationCallbacks* pAllocator);
 
     static VkResult vkCreateFence(VkDevice device, const VkFenceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkFence* pFence);
+    static VkResult vkWaitForFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences, VkBool32 waitAll, uint64_t timeout);
+    static VkResult vkResetFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences);
     static void     vkDestroyFence(VkDevice device, VkFence fence, const VkAllocationCallbacks* pAllocator);
 
     static void* vkGetDeviceProcAddr(VkDevice device, const char* pName);

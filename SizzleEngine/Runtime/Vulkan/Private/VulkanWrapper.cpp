@@ -140,6 +140,16 @@ VkResult VulkanWrapper::vkCreateFence(VkDevice device, const VkFenceCreateInfo* 
     return VULKAN_FN_NAMESPACE vkCreateFence(device, pCreateInfo, pAllocator, pFence);
 }
 
+VkResult VulkanWrapper::vkWaitForFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences, VkBool32 waitAll, uint64_t timeout)
+{
+    return VULKAN_FN_NAMESPACE vkWaitForFences(device, fenceCount, pFences, waitAll, timeout);
+}
+
+VkResult VulkanWrapper::vkResetFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences)
+{
+    return VULKAN_FN_NAMESPACE vkResetFences(device, fenceCount, pFences);
+}
+
 void VulkanWrapper::vkDestroyFence(VkDevice device, VkFence fence, const VkAllocationCallbacks* pAllocator)
 {
     VULKAN_FN_NAMESPACE vkDestroyFence(device, fence, pAllocator);
